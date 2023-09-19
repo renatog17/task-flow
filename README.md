@@ -1,6 +1,6 @@
 # Documentação da API TaskFlow
 
-Bem-vindo à documentação da API TaskFlow, uma poderosa ferramenta para gerenciamento de quadros, listas e tarefas, semelhante a ferramentas populares de gerenciamento de projetos como o Trello. Este documento fornece informações abrangentes sobre as operações CRUD (Criar, Ler, Atualizar e Excluir) disponíveis para cada entidade da API.
+Bem-vindo à documentação da API TaskFlow, uma ferramenta para gerenciamento de quadros, listas e tarefas, semelhante a ferramentas populares de gerenciamento de projetos como o Trello. Este documento fornece informações abrangentes sobre com orodar o projeto e os endpoints disponíveis.
 
 ## Base URL
 
