@@ -2,6 +2,21 @@
 
 Bem-vindo à documentação da API TaskFlow, uma ferramenta para gerenciamento de quadros, listas e tarefas, semelhante a ferramentas populares de gerenciamento de projetos como o Trello. Este documento fornece informações abrangentes sobre com orodar o projeto e os endpoints disponíveis.
 
+## Índice
+
+1. [Como rodar](#como-rodar)
+    - [Configuração do Projeto no Eclipse](#configuração-do-projeto-no-eclipse)
+2. [Autenticação](#autenticação)
+3. [Endpoints](#endpoints)
+    - [Quadros (Boards)](#quadros-boards)
+        - [Operações CRUD para Quadros](#operações-crud-para-quadros)
+    - [Listas (Lists)](#listas-lists)
+        - [Operações CRUD para Listas](#operações-crud-para-listas)
+    - [Tarefas (Tasks)](#tarefas-tasks)
+        - [Operações CRUD para Tarefas](#operações-crud-para-tarefas)
+4. [Tratamento de Erros](#tratamento-de-erros)
+
+
 ## Como rodar
 
 ### Configuração do Projeto no Eclipse
