@@ -6,7 +6,9 @@ Bem-vindo à documentação da API TaskFlow, uma ferramenta para gerenciamento d
 
 - com Eclipse:
   1.Faça download do projeto. Você pode clicar [aqui](https://github.com/renatog17/task-flow/archive/refs/heads/main.zip).
+  
   2.Abra o Eclipse.
+  
   3.Vá File>>Import.
   
   ![image](https://github.com/renatog17/task-flow/assets/54106116/2270592a-2e42-48b8-827d-1329e367cab9)
