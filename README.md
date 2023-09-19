@@ -45,9 +45,10 @@ Essas etapas devem permitir que você importe e execute o projeto TaskFlow no Ec
 
 Antes de fazer solicitações à API TaskFlow, certifique-se de estar devidamente autenticado e de ter as permissões necessárias. Os detalhes de autenticação variarão de acordo com sua implementação específica.
 
-## Quadros (Boards)
+## Endpoints
+### Quadros (Boards)
 
-### Operações CRUD para Quadros
+#### Operações CRUD para Quadros
 
 - **Criar Quadro**
   - **Método HTTP:** POST
@@ -69,9 +70,9 @@ Antes de fazer solicitações à API TaskFlow, certifique-se de estar devidament
   - **Endpoint:** `/quadros/{board_id}`
   - **Descrição:** Exclui um quadro e todas as listas e tarefas associadas.
 
-## Listas (Lists)
+### Listas (Lists)
 
-### Operações CRUD para Listas
+#### Operações CRUD para Listas
 
 - **Criar Lista**
   - **Método HTTP:** POST
@@ -93,9 +94,9 @@ Antes de fazer solicitações à API TaskFlow, certifique-se de estar devidament
   - **Endpoint:** `/listas/{list_id}`
   - **Descrição:** Exclui uma lista e todas as tarefas associadas.
 
-## Tarefas (Tasks)
+### Tarefas (Tasks)
 
-### Operações CRUD para Tarefas
+#### Operações CRUD para Tarefas
 
 - **Criar Tarefa**
   - **Método HTTP:** POST
