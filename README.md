@@ -4,7 +4,7 @@ Bem-vindo à documentação da API TaskFlow, uma ferramenta para gerenciamento d
 
 ## Como rodar
 
-# Configuração do Projeto no Eclipse
+### Configuração do Projeto no Eclipse
 
 Para configurar o projeto TaskFlow no Eclipse, siga as etapas abaixo:
 
