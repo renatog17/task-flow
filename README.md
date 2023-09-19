@@ -4,30 +4,39 @@ Bem-vindo à documentação da API TaskFlow, uma ferramenta para gerenciamento d
 
 ## Como rodar
 
-- com Eclipse:
-  1. Faça download do projeto. Você pode clicar [aqui](https://github.com/renatog17/task-flow/archive/refs/heads/main.zip).
-  
-  2. Abra o Eclipse.
-  
-  3. Vá em 'File>>Import'.
-  
-  ![image](https://github.com/renatog17/task-flow/assets/54106116/2270592a-2e42-48b8-827d-1329e367cab9)
-  
-  4. No menu de seleção escolha 'Maven>>Existing Maven Projects'.
-  
-  ![image](https://github.com/renatog17/task-flow/assets/54106116/efd2a8a9-b336-4368-829a-1cf9edef3aeb)
-  
-  5. Procure pela pasta que acabou de baixar e marque o chekbox indicado na imagem abaixo
-  
-  ![image](https://github.com/renatog17/task-flow/assets/54106116/45a49de0-b0b0-495f-bfa7-3adda3d2b78e)
+# Configuração do Projeto no Eclipse
 
-  6. Aguarde o maven atualizar o projeto.
-  
-  7. Procure a classe TaskFlowApplication
-  
-  ![image](https://github.com/renatog17/task-flow/assets/54106116/3286a4b4-04de-4fdd-b227-30ef1436e65a)
+Para configurar o projeto TaskFlow no Eclipse, siga as etapas abaixo:
 
-  8. Execute o método main.
+1. **Faça o Download do Projeto:** Você pode baixar o projeto clicando [aqui](https://github.com/renatog17/task-flow/archive/refs/heads/main.zip).
+
+2. **Abra o Eclipse:** Certifique-se de que o Eclipse esteja instalado em seu sistema e esteja aberto.
+
+3. **Importe o Projeto:**
+   - No Eclipse, vá em `File > Import`.
+
+   ![Passo 3](https://github.com/renatog17/task-flow/assets/54106116/2270592a-2e42-48b8-827d-1329e367cab9)
+
+4. **Escolha a Opção Maven:**
+   - No menu de seleção, escolha `Maven > Existing Maven Projects`.
+
+   ![Passo 4](https://github.com/renatog17/task-flow/assets/54106116/efd2a8a9-b336-4368-829a-1cf9edef3aeb)
+
+5. **Selecione a Pasta do Projeto:**
+   - Navegue até a pasta onde você fez o download do projeto e marque a caixa de seleção conforme indicado na imagem abaixo.
+
+   ![Passo 5](https://github.com/renatog17/task-flow/assets/54106116/45a49de0-b0b0-495f-bfa7-3adda3d2b78e)
+
+6. **Aguarde a Atualização do Projeto pelo Maven.**
+
+7. **Encontre a Classe TaskFlowApplication:**
+   - No projeto importado, procure pela classe `TaskFlowApplication`.
+
+   ![Passo 7](https://github.com/renatog17/task-flow/assets/54106116/3286a4b4-04de-4fdd-b227-30ef1436e65a)
+
+8. **Execute o Método Main:** Execute o método main da classe `TaskFlowApplication`.
+
+Essas etapas devem permitir que você importe e execute o projeto TaskFlow no Eclipse com sucesso. Certifique-se de que todas as dependências do Maven estejam resolvidas corretamente antes de executar o projeto.
 
 
 
