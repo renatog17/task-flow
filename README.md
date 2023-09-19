@@ -2,11 +2,32 @@
 
 Bem-vindo à documentação da API TaskFlow, uma ferramenta para gerenciamento de quadros, listas e tarefas, semelhante a ferramentas populares de gerenciamento de projetos como o Trello. Este documento fornece informações abrangentes sobre com orodar o projeto e os endpoints disponíveis.
 
-## Base URL
+## Como rodar
 
-A URL base para todos os endpoints da API é:
+- com Eclipse:
+  1.Faça download do projeto. Você pode clicar [aqui](https://github.com/renatog17/task-flow/archive/refs/heads/main.zip).
+  2.Abra o Eclipse.
+  3.Vá File>>Import.
+  
+  ![image](https://github.com/renatog17/task-flow/assets/54106116/2270592a-2e42-48b8-827d-1329e367cab9)
+  
+  4.No menu de seleção escolha Maven>>Existing Maven Projects.
+  
+  ![image](https://github.com/renatog17/task-flow/assets/54106116/efd2a8a9-b336-4368-829a-1cf9edef3aeb)
+  
+  5.Procure pela pasta que acabou de baixar e marque o chekbox indicado na imagem abaixo
+  
+  ![image](https://github.com/renatog17/task-flow/assets/54106116/45a49de0-b0b0-495f-bfa7-3adda3d2b78e)
 
-http://localhost:8080
+  6. Aguarde o maven atualizar o projeto.
+  7. Procure a classe TaskFlowApplication
+  
+  ![image](https://github.com/renatog17/task-flow/assets/54106116/3286a4b4-04de-4fdd-b227-30ef1436e65a)
+
+  8. Execute o método main.
+
+
+
 
 ## Autenticação
 
