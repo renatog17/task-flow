@@ -55,7 +55,7 @@ Essas etapas devem permitir que você importe e execute o projeto TaskFlow no Ec
 
 
 
-
+<!--
 ## Autenticação
 
 Antes de fazer solicitações à API TaskFlow, certifique-se de estar devidamente autenticado e de ter as permissões necessárias. Os detalhes de autenticação variarão de acordo com sua implementação específica.
@@ -140,3 +140,4 @@ A API retorna códigos de status HTTP apropriados junto com mensagens de erro pa
 Esta documentação deve fornecer todas as informações necessárias para começar a usar a API TaskFlow. Se você tiver alguma dúvida ou precisar de assistência adicional, entre em contato com nossa equipe de suporte.
 
 Gerencie suas tarefas com eficiência usando o TaskFlow!
+-->
