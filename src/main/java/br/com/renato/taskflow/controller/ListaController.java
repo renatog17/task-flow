@@ -18,10 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.renato.taskflow.controller.dto.lista.CreateListaDTO;
 import br.com.renato.taskflow.controller.dto.lista.ReadListaDTO;
 import br.com.renato.taskflow.controller.dto.lista.UpdateListaDTO;
-import br.com.renato.taskflow.controller.dto.tarefa.ReadTarefaDTO;
-import br.com.renato.taskflow.controller.dto.tarefa.UpdateTarefaDTO;
 import br.com.renato.taskflow.domain.Lista;
-import br.com.renato.taskflow.domain.Tarefa;
 import br.com.renato.taskflow.repository.ListaRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -38,13 +35,13 @@ public class ListaController {
 	public ResponseEntity<?> createLista(@RequestBody @Valid CreateListaDTO novaLista, UriComponentsBuilder uriBuilder){
 		Lista lista = new Lista(novaLista);
 		listaRepository.save(lista);
-		URI uri = uriBuilder.path("/listas/{id}").buildAndExpand(lista.getId()).toUri();
+		URI uri = uriBuilder.path("/listas/{id}").buildAndExpand (lista.getId()).toUri();
 		return ResponseEntity.created(uri).body(novaLista);
 	}
 	
 	@GetMapping("/lista")
-	public ResponseEntity<?> readLista(){
-		List<ReadListaDTO> listaListas = listaRepository.findAll().stream().map(lista ->{
+	public ResponseEntity<?> readListas(){
+		List<ReadListaDTO> listaListas = listaRepository.findAllByAtivoTrue().stream().map(lista ->{
 			ReadListaDTO readListaDTO = new ReadListaDTO(lista);
 			return readListaDTO;
 		}).toList();
@@ -52,15 +49,15 @@ public class ListaController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<?> readListas(@PathVariable Long id){
-		Lista lista = listaRepository.getReferenceById(id);
+	public ResponseEntity<?> readLista(@PathVariable Long id){
+		Lista lista = listaRepository.getReferenceByIdAndAtivoTrue(id);
 		return ResponseEntity.ok(new ReadListaDTO(lista));
 	}
 
 	@PutMapping()
 	@Transactional
 	public ResponseEntity<?> updateLista(@RequestBody UpdateListaDTO updatelistaDto){
-		Lista lista = listaRepository.getReferenceById(updatelistaDto.id());
+		Lista lista = listaRepository.getReferenceByIdAndAtivoTrue(updatelistaDto.id());
 		lista.update(updatelistaDto);
 		return ResponseEntity.ok(new ReadListaDTO(lista));
 	}
@@ -68,6 +65,7 @@ public class ListaController {
 	@DeleteMapping("/{id}")
 	@Transactional
 	public void deleteTarefa(@PathVariable Long id) {
-		listaRepository.deleteById(id);
+		Lista lista = listaRepository.getReferenceById(id);
+		lista.exclusaoLogica();
 	}
 }

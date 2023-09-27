@@ -18,9 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.renato.taskflow.controller.dto.quadro.CreateQuadroDTO;
 import br.com.renato.taskflow.controller.dto.quadro.ReadQuadroDTO;
 import br.com.renato.taskflow.controller.dto.quadro.UpdateQuadroDTO;
-import br.com.renato.taskflow.controller.dto.tarefa.ReadTarefaDTO;
 import br.com.renato.taskflow.domain.Quadro;
-import br.com.renato.taskflow.domain.Tarefa;
 import br.com.renato.taskflow.repository.QuadroRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -38,12 +36,12 @@ public class QuadroController {
 		Quadro quadro = new Quadro(novoQuadro);
 		quadroRepository.save(quadro);
 		URI uri = uriBuilder.path("/tarefas/{id}").buildAndExpand(quadro.getId()).toUri();
-		return ResponseEntity.created(uri).body(novoQuadro);
+		return ResponseEntity.created(uri).body(new ReadQuadroDTO(quadro));
 	}
 	
 	@GetMapping("/lista")
 	public ResponseEntity<?> readQuadro(){
-		List<ReadQuadroDTO> listaQuadros = quadroRepository.findAll().stream().map(quadro ->{
+		List<ReadQuadroDTO> listaQuadros = quadroRepository.findAllByAtivoTrue().stream().map(quadro ->{
 			ReadQuadroDTO readQuadroDto = new ReadQuadroDTO(quadro);
 			return readQuadroDto;
 		}).toList();
@@ -59,7 +57,7 @@ public class QuadroController {
 	@PutMapping()
 	@Transactional
 	public ResponseEntity<?> updateQuadro(@RequestBody UpdateQuadroDTO updateQuadroDTO){
-		Quadro quadro = quadroRepository.getReferenceById(updateQuadroDTO.id());
+		Quadro quadro = quadroRepository.getReferenceByIdAndAtivoTrue(updateQuadroDTO.id());
 		quadro.update(updateQuadroDTO);
 		return ResponseEntity.ok(new ReadQuadroDTO(quadro));
 	}
@@ -67,6 +65,7 @@ public class QuadroController {
 	@DeleteMapping("/{id}")
 	@Transactional
 	public void deleteQuadro(@PathVariable Long id) {
-		quadroRepository.deleteById(id);
+		Quadro quadro = quadroRepository.getReferenceById(id);
+		quadro.exclusaoLogica();
 	}
 }

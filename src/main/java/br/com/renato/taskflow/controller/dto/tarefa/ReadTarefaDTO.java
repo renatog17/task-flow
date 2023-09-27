@@ -4,13 +4,16 @@ import java.time.LocalDate;
 
 import br.com.renato.taskflow.domain.Tarefa;
 
-public record ReadTarefaDTO (String titulo,
+public record ReadTarefaDTO (
+		Long id,
+		String titulo,
 		String descricao,
 		LocalDate prazo,
-		LocalDate dataCriacao){
+		LocalDate dataCriacao,
+		Long listaId){
 
 	public ReadTarefaDTO(Tarefa tarefa) {
-		this(tarefa.getTitulo(), tarefa.getDescricao(), tarefa.getPrazo(), tarefa.getDataCriacao());
+		this(tarefa.getId(), tarefa.getTitulo(), tarefa.getDescricao(), tarefa.getPrazo(), tarefa.getDataCriacao(), tarefa.getLista().getId());
 	}
 
 }

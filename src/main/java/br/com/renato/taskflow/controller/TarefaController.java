@@ -41,7 +41,7 @@ public class TarefaController {
 	
 	@GetMapping("/lista")
 	public ResponseEntity<?> readTarefa(){
-		List<ReadTarefaDTO> listaTarefas = tarefaRepository.findAll().stream().map(tarefa ->{
+		List<ReadTarefaDTO> listaTarefas = tarefaRepository.findAllByAtivoTrue().stream().map(tarefa ->{
 			ReadTarefaDTO readTarefaDto = new ReadTarefaDTO(tarefa);
 			return readTarefaDto;
 		}).toList();
@@ -50,14 +50,14 @@ public class TarefaController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> readTarefas(@PathVariable Long id){
-		Tarefa tarefa = tarefaRepository.getReferenceById(id);
+		Tarefa tarefa = tarefaRepository.getReferenceByIdAndAtivoTrue(id);
 		return ResponseEntity.ok(new ReadTarefaDTO(tarefa));
 	}
 
 	@PutMapping()
 	@Transactional
 	public ResponseEntity<?> updateTarefa(@RequestBody UpdateTarefaDTO updateTarefaDto){
-		Tarefa tarefa = tarefaRepository.findByTitulo(updateTarefaDto.titulo());
+		Tarefa tarefa = tarefaRepository.getReferenceByIdAndAtivoTrue(updateTarefaDto.id());
 		tarefa.update(updateTarefaDto);
 		return ResponseEntity.ok(new ReadTarefaDTO(tarefa));
 	}
@@ -65,6 +65,7 @@ public class TarefaController {
 	@DeleteMapping("/{id}")
 	@Transactional
 	public void deleteTarefa(@PathVariable Long id) {
-		tarefaRepository.deleteById(id);
+		Tarefa tarefa = tarefaRepository.getReferenceById(id);
+		tarefa.exclusaoLogica();
 	}
 }

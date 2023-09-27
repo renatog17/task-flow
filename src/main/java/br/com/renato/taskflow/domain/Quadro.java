@@ -27,6 +27,7 @@ public class Quadro {
 	private LocalDate dataCriacao;
 	@OneToMany(mappedBy = "quadro")
 	private List<Lista> listas = new ArrayList<Lista>();
+	private Boolean ativo = true;
 
 	public Quadro() {
 		super();
@@ -68,7 +69,13 @@ public class Quadro {
 	public LocalDate getDataCriacao() {
 		return dataCriacao;
 	}
+	public Boolean getAtivo() {
+		return ativo;
+	}
 
+	public void exclusaoLogica() {
+		this.ativo = false;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

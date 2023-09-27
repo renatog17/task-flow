@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 @Entity(name = "Tarefa")
 @Table(name = "tarefas")
@@ -23,8 +24,9 @@ public class Tarefa {
 	private String descricao;
 	private LocalDate dataCriacao;
 	private LocalDate prazo;
-	@ManyToOne
+	@ManyToOne()
 	private Lista lista;
+	private Boolean ativo = true;
 
 	public Tarefa() {
 		super();
@@ -40,11 +42,13 @@ public class Tarefa {
 		this.lista = lista;
 	}
 
-	public Tarefa(CreateTarefaDTO novaTarefa) {
+	public Tarefa(@Valid CreateTarefaDTO novaTarefa) {
+		Lista lista = new Lista(novaTarefa.idLista());
 		this.titulo = novaTarefa.titulo();
 		this.descricao = novaTarefa.descricao();
 		this.prazo = novaTarefa.prazo();
 		this.dataCriacao = LocalDate.now();
+		this.lista = lista;
 	}
 
 	public Long getId() {
@@ -69,6 +73,14 @@ public class Tarefa {
 
 	public Lista getLista() {
 		return lista;
+	}
+	
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void exclusaoLogica() {
+		this.ativo = false;
 	}
 
 	@Override

@@ -4,7 +4,12 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public record UpdateTarefaDTO(String titulo,
+import jakarta.validation.constraints.NotNull;
+
+public record UpdateTarefaDTO(
+		@NotNull
+		Long id,
+		String titulo,
 		String descricao,
 		@JsonFormat(pattern = "dd/MM/yyyy")
 		LocalDate prazo) {

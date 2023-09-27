@@ -27,6 +27,7 @@ public class Lista {
 	private Quadro quadro;
 	@OneToMany(mappedBy = "lista")
 	private List<Tarefa> tarefas = new ArrayList<>();
+	private Boolean ativo = true;
 
 	public Lista() {
 		super();
@@ -45,6 +46,10 @@ public class Lista {
 		this.quadro = quadro;
 	}
 
+	public Lista(Long idLista) {
+		this.id = idLista;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -60,7 +65,14 @@ public class Lista {
 	public List<Tarefa> getTarefas() {
 		return tarefas;
 	}
+	
+	public Boolean getAtivo() {
+		return ativo;
+	}
 
+	public void exclusaoLogica() {
+		this.ativo = false;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
