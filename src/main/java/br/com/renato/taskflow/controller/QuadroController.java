@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.renato.taskflow.controller.dto.lista.ReadListaDTO;
 import br.com.renato.taskflow.controller.dto.quadro.CreateQuadroDTO;
 import br.com.renato.taskflow.controller.dto.quadro.ReadQuadroDTO;
 import br.com.renato.taskflow.controller.dto.quadro.UpdateQuadroDTO;
@@ -35,44 +34,46 @@ public class QuadroController {
 
 	@Autowired
 	QuadroRepository quadroRepository;
-	
+
 	@PostMapping
 	@Transactional
-	public ResponseEntity<?> createQuadro(@RequestBody @Valid CreateQuadroDTO novoQuadro, UriComponentsBuilder uriBuilder){
+	public ResponseEntity<?> createQuadro(@RequestBody @Valid CreateQuadroDTO novoQuadro,
+			UriComponentsBuilder uriBuilder) {
 		Quadro quadro = new Quadro(novoQuadro);
 		quadroRepository.save(quadro);
 		URI uri = uriBuilder.path("/tarefas/{id}").buildAndExpand(quadro.getId()).toUri();
 		return ResponseEntity.created(uri).body(new ReadQuadroDTO(quadro));
 	}
-	
+
 	@GetMapping("/lista")
-	public ResponseEntity<Page<ReadQuadroDTO>> readQuadro(@RequestParam int page, @RequestParam int size, @RequestParam String sortBy){
+	public ResponseEntity<Page<ReadQuadroDTO>> readQuadro(@RequestParam int page, @RequestParam int size,
+			@RequestParam String sortBy) {
 		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
 		Page<ReadQuadroDTO> listaQuadros = quadroRepository.findAllByAtivoTrue(pageable).map(ReadQuadroDTO::new);
 		return ResponseEntity.ok(listaQuadros);
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<?> readQuadros(@PathVariable Long id){
+	public ResponseEntity<?> readQuadros(@PathVariable Long id) {
 		Quadro quadro = quadroRepository.getReferenceById(id);
 		return ResponseEntity.ok(new ReadQuadroDTO(quadro));
 	}
 
 	@PutMapping()
 	@Transactional
-	public ResponseEntity<?> updateQuadro(@RequestBody @Valid UpdateQuadroDTO updateQuadroDTO){
+	public ResponseEntity<?> updateQuadro(@RequestBody @Valid UpdateQuadroDTO updateQuadroDTO) {
 		Quadro quadro = quadroRepository.getReferenceByIdAndAtivoTrue(updateQuadroDTO.id());
-		if (quadro==null)
+		if (quadro == null)
 			return ResponseEntity.notFound().build();
 		quadro.update(updateQuadroDTO);
 		return ResponseEntity.ok(new ReadQuadroDTO(quadro));
 	}
-	
+
 	@DeleteMapping("/{id}")
 	@Transactional
 	public ResponseEntity<?> deleteQuadro(@PathVariable Long id) {
 		Quadro quadro = quadroRepository.getReferenceById(id);
-		if(quadro.getAtivo()) {
+		if (quadro.getAtivo()) {
 			quadro.exclusaoLogica();
 			return ResponseEntity.ok().build();
 		}

@@ -3,7 +3,6 @@ package br.com.renato.taskflow.controller;
 import java.net.URI;
 import java.util.List;
 
-import org.hibernate.query.NativeQuery.ReturnableResultNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +26,7 @@ import br.com.renato.taskflow.controller.dto.lista.UpdateListaDTO;
 import br.com.renato.taskflow.controller.dto.tarefa.ReadTarefaDTO;
 import br.com.renato.taskflow.domain.Lista;
 import br.com.renato.taskflow.repository.ListaRepository;
+import br.com.renato.taskflow.repository.TarefaRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -36,6 +36,9 @@ public class ListaController {
 
 	@Autowired
 	ListaRepository listaRepository;
+	
+	@Autowired
+	TarefaRepository tarefaRepository;
 	
 	@PostMapping
 	@Transactional
@@ -59,6 +62,20 @@ public class ListaController {
 		if(lista==null)
 			return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(new ReadListaDTO(lista));
+	}
+	
+	@GetMapping("/{id}/tarefas")
+	public ResponseEntity<ReadListaDTO> readListaETarefas(@PathVariable Long id){
+		Lista lista = listaRepository.getReferenceById(id);
+		
+		List<ReadTarefaDTO> tarefas = tarefaRepository.findAllByLista(lista).stream().map(
+				tarefa -> {
+					ReadTarefaDTO readTarefaDTO = new ReadTarefaDTO(tarefa);
+					return readTarefaDTO;
+				}).toList();
+		
+		ReadListaDTO listaComTarefas = new ReadListaDTO(lista, tarefas);
+		return ResponseEntity.ok(listaComTarefas);
 	}
 	
 	@PutMapping()

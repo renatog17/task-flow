@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.renato.taskflow.controller.dto.lista.CreateListaDTO;
 import br.com.renato.taskflow.controller.dto.lista.UpdateListaDTO;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,7 +29,8 @@ public class Lista {
 	private String titulo;
 	@ManyToOne()
 	private Quadro quadro;
-	@OneToMany(mappedBy = "lista")
+	@OneToMany(mappedBy = "lista", fetch = FetchType.EAGER)
+	@JsonIgnore
 	private List<Tarefa> tarefas = new ArrayList<>();
 	private Boolean ativo = true;
 	private LocalDate dataCriacao;

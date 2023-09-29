@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import br.com.renato.taskflow.domain.Lista;
 import br.com.renato.taskflow.domain.Tarefa;
 
 public interface TarefaRepository extends JpaRepository<Tarefa, Long>{
@@ -14,4 +15,5 @@ public interface TarefaRepository extends JpaRepository<Tarefa, Long>{
 	List<Tarefa> findAllByAtivoTrue();
 	Tarefa getReferenceByIdAndAtivoTrue(Long id);
 	Page<Tarefa> findAllByAtivoTrue(Pageable paginacao);
+	List<Tarefa> findAllByLista(Lista lista);
 }

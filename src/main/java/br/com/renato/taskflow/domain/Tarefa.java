@@ -3,6 +3,8 @@ package br.com.renato.taskflow.domain;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.renato.taskflow.controller.dto.tarefa.CreateTarefaDTO;
 import br.com.renato.taskflow.controller.dto.tarefa.UpdateTarefaDTO;
 import jakarta.persistence.Entity;
@@ -25,6 +27,7 @@ public class Tarefa {
 	private LocalDate dataCriacao;
 	private LocalDate prazo;
 	@ManyToOne()
+	@JsonIgnore
 	private Lista lista;
 	private Boolean ativo = true;
 
