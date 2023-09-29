@@ -1,4 +1,4 @@
-package br.com.renato.taskflow.controller.serializador;
+package br.com.renato.taskflow.controller.dto.serializer;
 import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonGenerator;

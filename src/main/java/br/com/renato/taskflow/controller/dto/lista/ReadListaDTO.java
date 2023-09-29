@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import br.com.renato.taskflow.controller.dto.serializer.ReadListaDTOSerializer;
 import br.com.renato.taskflow.controller.dto.tarefa.ReadTarefaDTO;
-import br.com.renato.taskflow.controller.serializador.ReadListaDTOSerializer;
 import br.com.renato.taskflow.domain.Lista;
 
 @JsonSerialize(using = ReadListaDTOSerializer.class)
