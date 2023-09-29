@@ -4,6 +4,10 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -40,23 +45,23 @@ public class TarefaController {
 	}
 	
 	@GetMapping("/lista")
-	public ResponseEntity<?> readTarefa(){
-		List<ReadTarefaDTO> listaTarefas = tarefaRepository.findAllByAtivoTrue().stream().map(tarefa ->{
-			ReadTarefaDTO readTarefaDto = new ReadTarefaDTO(tarefa);
-			return readTarefaDto;
-		}).toList();
-		return ResponseEntity.ok(listaTarefas);
+	public ResponseEntity<Page<ReadTarefaDTO>> readTarefa(@RequestParam int page, @RequestParam int size, @RequestParam String sortBy){
+		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+		Page<ReadTarefaDTO> tarefas = tarefaRepository.findAllByAtivoTrue(pageable).map(ReadTarefaDTO::new);
+		return ResponseEntity.ok(tarefas);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> readTarefas(@PathVariable Long id){
 		Tarefa tarefa = tarefaRepository.getReferenceByIdAndAtivoTrue(id);
+		if(tarefa==null)
+			return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(new ReadTarefaDTO(tarefa));
 	}
 
 	@PutMapping()
 	@Transactional
-	public ResponseEntity<?> updateTarefa(@RequestBody UpdateTarefaDTO updateTarefaDto){
+	public ResponseEntity<?> updateTarefa(@RequestBody @Valid UpdateTarefaDTO updateTarefaDto){
 		Tarefa tarefa = tarefaRepository.getReferenceByIdAndAtivoTrue(updateTarefaDto.id());
 		tarefa.update(updateTarefaDto);
 		return ResponseEntity.ok(new ReadTarefaDTO(tarefa));
@@ -64,8 +69,12 @@ public class TarefaController {
 	
 	@DeleteMapping("/{id}")
 	@Transactional
-	public void deleteTarefa(@PathVariable Long id) {
+	public ResponseEntity<?> deleteTarefa(@PathVariable Long id) {
 		Tarefa tarefa = tarefaRepository.getReferenceById(id);
-		tarefa.exclusaoLogica();
+		if(tarefa.getAtivo()) {
+			tarefa.exclusaoLogica();
+			return ResponseEntity.ok().build();
+		}
+		return ResponseEntity.notFound().build();
 	}
 }
