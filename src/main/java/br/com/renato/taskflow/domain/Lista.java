@@ -1,5 +1,6 @@
 package br.com.renato.taskflow.domain;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,6 +29,7 @@ public class Lista {
 	@OneToMany(mappedBy = "lista")
 	private List<Tarefa> tarefas = new ArrayList<>();
 	private Boolean ativo = true;
+	private LocalDate dataCriacao;
 
 	public Lista() {
 		super();
@@ -44,6 +46,7 @@ public class Lista {
 		Quadro quadro = new Quadro(novaLista.idQuadro());
 		this.titulo = novaLista.titulo();
 		this.quadro = quadro;
+		this.dataCriacao = LocalDate.now();
 	}
 
 	public Lista(Long idLista) {
@@ -65,14 +68,19 @@ public class Lista {
 	public List<Tarefa> getTarefas() {
 		return tarefas;
 	}
-	
+
 	public Boolean getAtivo() {
 		return ativo;
+	}
+
+	public LocalDate getDataCriacao() {
+		return dataCriacao;
 	}
 
 	public void exclusaoLogica() {
 		this.ativo = false;
 	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -91,7 +99,7 @@ public class Lista {
 	}
 
 	public void update(UpdateListaDTO updatelistaDto) {
-		if(updatelistaDto.titulo()!=null)
+		if (updatelistaDto.titulo() != null)
 			this.titulo = updatelistaDto.titulo();
 	}
 

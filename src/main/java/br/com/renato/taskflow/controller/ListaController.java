@@ -3,7 +3,12 @@ package br.com.renato.taskflow.controller;
 import java.net.URI;
 import java.util.List;
 
+import org.hibernate.query.NativeQuery.ReturnableResultNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,12 +17,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.renato.taskflow.controller.dto.lista.CreateListaDTO;
 import br.com.renato.taskflow.controller.dto.lista.ReadListaDTO;
 import br.com.renato.taskflow.controller.dto.lista.UpdateListaDTO;
+import br.com.renato.taskflow.controller.dto.tarefa.ReadTarefaDTO;
 import br.com.renato.taskflow.domain.Lista;
 import br.com.renato.taskflow.repository.ListaRepository;
 import jakarta.transaction.Transactional;
@@ -40,32 +47,38 @@ public class ListaController {
 	}
 	
 	@GetMapping("/lista")
-	public ResponseEntity<?> readListas(){
-		List<ReadListaDTO> listaListas = listaRepository.findAllByAtivoTrue().stream().map(lista ->{
-			ReadListaDTO readListaDTO = new ReadListaDTO(lista);
-			return readListaDTO;
-		}).toList();
+	public ResponseEntity<Page<ReadListaDTO>> readListas(@RequestParam int page, @RequestParam int size, @RequestParam String sortBy){
+		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+		Page<ReadListaDTO> listaListas = listaRepository.findAllByAtivoTrue(pageable).map(ReadListaDTO::new);
 		return ResponseEntity.ok(listaListas);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> readLista(@PathVariable Long id){
 		Lista lista = listaRepository.getReferenceByIdAndAtivoTrue(id);
+		if(lista==null)
+			return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(new ReadListaDTO(lista));
 	}
-
+	
 	@PutMapping()
 	@Transactional
 	public ResponseEntity<?> updateLista(@RequestBody UpdateListaDTO updatelistaDto){
 		Lista lista = listaRepository.getReferenceByIdAndAtivoTrue(updatelistaDto.id());
+		if(lista==null)
+			return ResponseEntity.notFound().build();
 		lista.update(updatelistaDto);
 		return ResponseEntity.ok(new ReadListaDTO(lista));
 	}
 	
 	@DeleteMapping("/{id}")
 	@Transactional
-	public void deleteTarefa(@PathVariable Long id) {
+	public ResponseEntity<?> deleteTarefa(@PathVariable Long id) {
 		Lista lista = listaRepository.getReferenceById(id);
-		lista.exclusaoLogica();
+		if(lista.getAtivo()) {
+			lista.exclusaoLogica();
+			return ResponseEntity.ok().build();
+		}
+		return ResponseEntity.notFound().build();
 	}
 }

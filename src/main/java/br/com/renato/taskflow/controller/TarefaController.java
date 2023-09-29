@@ -63,6 +63,8 @@ public class TarefaController {
 	@Transactional
 	public ResponseEntity<?> updateTarefa(@RequestBody @Valid UpdateTarefaDTO updateTarefaDto){
 		Tarefa tarefa = tarefaRepository.getReferenceByIdAndAtivoTrue(updateTarefaDto.id());
+		if(tarefa==null)
+			return ResponseEntity.notFound().build();
 		tarefa.update(updateTarefaDto);
 		return ResponseEntity.ok(new ReadTarefaDTO(tarefa));
 	}
