@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.renato.taskflow.controller.dto.lista.CreateListaDTO;
 import br.com.renato.taskflow.controller.dto.lista.UpdateListaDTO;
+import br.com.renato.taskflow.controller.dto.tarefa.ReadTarefaDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;

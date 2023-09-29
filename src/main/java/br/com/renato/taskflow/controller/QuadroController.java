@@ -20,11 +20,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.renato.taskflow.controller.dto.lista.ReadListaDTO;
 import br.com.renato.taskflow.controller.dto.quadro.CreateQuadroDTO;
 import br.com.renato.taskflow.controller.dto.quadro.ReadQuadroDTO;
 import br.com.renato.taskflow.controller.dto.quadro.UpdateQuadroDTO;
+import br.com.renato.taskflow.controller.dto.tarefa.ReadTarefaDTO;
 import br.com.renato.taskflow.domain.Quadro;
+import br.com.renato.taskflow.domain.Tarefa;
+import br.com.renato.taskflow.repository.ListaRepository;
 import br.com.renato.taskflow.repository.QuadroRepository;
+import br.com.renato.taskflow.repository.TarefaRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -34,6 +39,10 @@ public class QuadroController {
 
 	@Autowired
 	QuadroRepository quadroRepository;
+	@Autowired
+	ListaRepository listaRepository;
+	@Autowired
+	TarefaRepository tarefaRepository;
 
 	@PostMapping
 	@Transactional
@@ -57,6 +66,26 @@ public class QuadroController {
 	public ResponseEntity<?> readQuadros(@PathVariable Long id) {
 		Quadro quadro = quadroRepository.getReferenceById(id);
 		return ResponseEntity.ok(new ReadQuadroDTO(quadro));
+	}
+	
+	@GetMapping("/{id}/listas")
+	public ResponseEntity<ReadQuadroDTO> readQuadroComListas(@PathVariable Long id){
+		Quadro quadro = quadroRepository.getReferenceById(id);
+		List<ReadListaDTO> listas = listaRepository.findAllByQuadro(quadro).stream().map(
+				lista -> {
+					
+					List<ReadTarefaDTO> tarefas = tarefaRepository.findAllByLista(lista).stream().map(
+							tarefa -> {
+								ReadTarefaDTO readTarefaDTO = new ReadTarefaDTO(tarefa);
+								return readTarefaDTO;
+							}).toList();
+					
+					ReadListaDTO readListaDTO = new ReadListaDTO(lista, tarefas);
+					return readListaDTO;
+				}).toList();
+		
+		ReadQuadroDTO quadroComListas = new ReadQuadroDTO(quadro, listas);
+		return ResponseEntity.ok(quadroComListas);
 	}
 
 	@PutMapping()
