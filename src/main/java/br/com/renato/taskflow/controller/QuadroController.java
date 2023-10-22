@@ -30,6 +30,7 @@ import br.com.renato.taskflow.domain.Tarefa;
 import br.com.renato.taskflow.repository.ListaRepository;
 import br.com.renato.taskflow.repository.QuadroRepository;
 import br.com.renato.taskflow.repository.TarefaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -93,7 +94,7 @@ public class QuadroController {
 	public ResponseEntity<?> updateQuadro(@RequestBody @Valid UpdateQuadroDTO updateQuadroDTO) {
 		Quadro quadro = quadroRepository.getReferenceByIdAndAtivoTrue(updateQuadroDTO.id());
 		if (quadro == null)
-			return ResponseEntity.notFound().build();
+			throw new EntityNotFoundException();
 		quadro.update(updateQuadroDTO);
 		return ResponseEntity.ok(new ReadQuadroDTO(quadro));
 	}

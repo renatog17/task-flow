@@ -1,7 +1,6 @@
 package br.com.renato.taskflow.controller;
 
 import java.net.URI;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,6 +24,7 @@ import br.com.renato.taskflow.controller.dto.tarefa.ReadTarefaDTO;
 import br.com.renato.taskflow.controller.dto.tarefa.UpdateTarefaDTO;
 import br.com.renato.taskflow.domain.Tarefa;
 import br.com.renato.taskflow.repository.TarefaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -55,7 +55,8 @@ public class TarefaController {
 	public ResponseEntity<?> readTarefas(@PathVariable Long id){
 		Tarefa tarefa = tarefaRepository.getReferenceByIdAndAtivoTrue(id);
 		if(tarefa==null)
-			return ResponseEntity.notFound().build();
+			throw new EntityNotFoundException();
+			
 		return ResponseEntity.ok(new ReadTarefaDTO(tarefa));
 	}
 
@@ -64,7 +65,7 @@ public class TarefaController {
 	public ResponseEntity<?> updateTarefa(@RequestBody @Valid UpdateTarefaDTO updateTarefaDto){
 		Tarefa tarefa = tarefaRepository.getReferenceByIdAndAtivoTrue(updateTarefaDto.id());
 		if(tarefa==null)
-			return ResponseEntity.notFound().build();
+			throw new EntityNotFoundException();
 		tarefa.update(updateTarefaDto);
 		return ResponseEntity.ok(new ReadTarefaDTO(tarefa));
 	}

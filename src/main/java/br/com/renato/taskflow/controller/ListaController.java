@@ -27,6 +27,7 @@ import br.com.renato.taskflow.controller.dto.tarefa.ReadTarefaDTO;
 import br.com.renato.taskflow.domain.Lista;
 import br.com.renato.taskflow.repository.ListaRepository;
 import br.com.renato.taskflow.repository.TarefaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -60,7 +61,7 @@ public class ListaController {
 	public ResponseEntity<?> readLista(@PathVariable Long id){
 		Lista lista = listaRepository.getReferenceByIdAndAtivoTrue(id);
 		if(lista==null)
-			return ResponseEntity.notFound().build();
+			throw new EntityNotFoundException();
 		return ResponseEntity.ok(new ReadListaDTO(lista));
 	}
 	
@@ -83,7 +84,7 @@ public class ListaController {
 	public ResponseEntity<?> updateLista(@RequestBody UpdateListaDTO updatelistaDto){
 		Lista lista = listaRepository.getReferenceByIdAndAtivoTrue(updatelistaDto.id());
 		if(lista==null)
-			return ResponseEntity.notFound().build();
+			throw new EntityNotFoundException();
 		lista.update(updatelistaDto);
 		return ResponseEntity.ok(new ReadListaDTO(lista));
 	}

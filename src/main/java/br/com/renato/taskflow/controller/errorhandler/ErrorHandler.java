@@ -10,6 +10,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @RestControllerAdvice
 public class ErrorHandler {
 
@@ -36,4 +38,10 @@ public class ErrorHandler {
 		ErrorResponse error = new ErrorResponse("Um tipo não esperado foi atribuido", HttpStatus.BAD_REQUEST, "400");
 		return ResponseEntity.badRequest().body(error);
 	}
+	
+	@ExceptionHandler(EntityNotFoundException.class)
+	public ResponseEntity<?> tratarErroEntidadeNaoEncontrada(EntityNotFoundException exception){
+		return ResponseEntity.notFound().build();
+	}
+	
 }
