@@ -65,7 +65,7 @@ Antes de fazer solicitações à API TaskFlow, certifique-se de estar devidament
 |-|-|-|
 |Criar| POST| `/quadros`|
 |Ler| GET| `/quadros/{board_id}`|
-|Listar todos| `quadros/lista`|
+|Listar todos| GET|`quadros/lista`|
 |Atualizar| `PUT|/quadros/{board_id}`|
 |Ecluir|DELETE|`/quadros/{board_id}`|
   
@@ -74,7 +74,7 @@ Antes de fazer solicitações à API TaskFlow, certifique-se de estar devidament
 |-|-|-|
 |Criar| POST| `/listas`|
 |Ler| GET| `/listas/{list_id}`|
-|Listar todos| `listas/lista`|
+|Listar todos| GET|`listas/lista`|
 |Atualizar| PUT|`/listas/{list_id}`|
 |Ecluir|DELETE|`/listas/{list_id}`|
 
@@ -83,7 +83,7 @@ Antes de fazer solicitações à API TaskFlow, certifique-se de estar devidament
 |-|-|-|
 |Criar| POST| `/tarefas`|
 |Ler| GET| `/tarefas/{task_id}`|
-|Listar todos| `tarefas/lista`|
+|Listar todos| GET|`tarefas/lista`|
 |Atualizar| PUT|`/tarefas/{task_id}`|
 |Ecluir|DELETE|`/tarefas/{task_id}`|
 
