@@ -66,7 +66,7 @@ Antes de fazer solicitações à API TaskFlow, certifique-se de estar devidament
 |Criar| POST| `/quadros`|
 |Ler| GET| `/quadros/{board_id}`|
 |Listar todos| GET|`/quadros/lista`|
-|Atualizar| `PUT|/quadros/{board_id}`|
+|Atualizar| PUT|`/quadros/{board_id}`|
 |Ecluir|DELETE|`/quadros/{board_id}`|
   
 ### Operações CRUD para Listas
