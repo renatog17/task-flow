@@ -8,12 +8,9 @@ Bem-vindo à documentação da API TaskFlow, uma ferramenta para gerenciamento d
     - [Configuração do Projeto no Eclipse](#configuração-do-projeto-no-eclipse)
 2. [Autenticação](#autenticação)
 3. [Endpoints](#endpoints)
-    - [Quadros (Boards)](#quadros-boards)
-        - [Operações CRUD para Quadros](#operações-crud-para-quadros)
-    - [Listas (Lists)](#listas-lists)
-        - [Operações CRUD para Listas](#operações-crud-para-listas)
-    - [Tarefas (Tasks)](#tarefas-tasks)
-        - [Operações CRUD para Tarefas](#operações-crud-para-tarefas)
+    - [Operações CRUD para Quadros](#operações-crud-para-quadros)
+    - [Operações CRUD para Listas](#operações-crud-para-listas)
+    - [Operações CRUD para Tarefas](#operações-crud-para-tarefas)
 4. [Tratamento de Erros](#tratamento-de-erros)
 
 
@@ -59,80 +56,38 @@ Essas etapas devem permitir que você importe e execute o projeto TaskFlow no Ec
 ## Autenticação
 
 Antes de fazer solicitações à API TaskFlow, certifique-se de estar devidamente autenticado e de ter as permissões necessárias. Os detalhes de autenticação variarão de acordo com sua implementação específica.
+-->
 
 ## Endpoints
-### Quadros (Boards)
 
-#### Operações CRUD para Quadros
+### Operações CRUD para Quadros
+|Descrição|Método HTTP|Endereço |
+|-|-|-|
+|Criar| POST| `/quadros`|
+|Ler| GET| `/quadros/{board_id}`|
+|Listar todos| `quadros/lista`|
+|Atualizar| `PUT|/quadros/{board_id}`|
+|Ecluir|DELETE|`/quadros/{board_id}`|
+  
+### Operações CRUD para Listas
+|Descrição|Método HTTP|Endereço |
+|-|-|-|
+|Criar| POST| `/listas`|
+|Ler| GET| `/listas/{list_id}`|
+|Listar todos| `listas/lista`|
+|Atualizar| PUT|`/listas/{list_id}`|
+|Ecluir|DELETE|`/listas/{list_id}`|
 
-- **Criar Quadro**
-  - **Método HTTP:** POST
-  - **Endpoint:** `/quadros`
-  - **Descrição:** Cria um novo quadro.
-  
-- **Ler Quadro**
-  - **Método HTTP:** GET
-  - **Endpoint:** `/quadros/{board_id}`
-  - **Descrição:** Recupera informações sobre um quadro específico pelo seu ID.
-  
-- **Atualizar Quadro**
-  - **Método HTTP:** PUT
-  - **Endpoint:** `/quadros/{board_id}`
-  - **Descrição:** Atualiza os detalhes de um quadro específico.
-  
-- **Excluir Quadro**
-  - **Método HTTP:** DELETE
-  - **Endpoint:** `/quadros/{board_id}`
-  - **Descrição:** Exclui um quadro e todas as listas e tarefas associadas.
+### Operações CRUD para Tarefas
+|Descrição|Método HTTP|Endereço |
+|-|-|-|
+|Criar| POST| `/tarefas`|
+|Ler| GET| `/tarefas/{task_id}`|
+|Listar todos| `tarefas/lista`|
+|Atualizar| PUT|`/tarefas/{task_id}`|
+|Ecluir|DELETE|`/tarefas/{task_id}`|
 
-### Listas (Lists)
-
-#### Operações CRUD para Listas
-
-- **Criar Lista**
-  - **Método HTTP:** POST
-  - **Endpoint:** `/listas`
-  - **Descrição:** Cria uma nova lista em um quadro específico.
-  
-- **Ler Lista**
-  - **Método HTTP:** GET
-  - **Endpoint:** `/listas/{list_id}`
-  - **Descrição:** Recupera informações sobre uma lista específica pelo seu ID.
-  
-- **Atualizar Lista**
-  - **Método HTTP:** PUT
-  - **Endpoint:** `/listas/{list_id}`
-  - **Descrição:** Atualiza os detalhes de uma lista específica.
-  
-- **Excluir Lista**
-  - **Método HTTP:** DELETE
-  - **Endpoint:** `/listas/{list_id}`
-  - **Descrição:** Exclui uma lista e todas as tarefas associadas.
-
-### Tarefas (Tasks)
-
-#### Operações CRUD para Tarefas
-
-- **Criar Tarefa**
-  - **Método HTTP:** POST
-  - **Endpoint:** `/tarefas`
-  - **Descrição:** Cria uma nova tarefa em uma lista específica.
-  
-- **Ler Tarefa**
-  - **Método HTTP:** GET
-  - **Endpoint:** `/tarefas/{task_id}`
-  - **Descrição:** Recupera informações sobre uma tarefa específica pelo seu ID.
-  
-- **Atualizar Tarefa**
-  - **Método HTTP:** PUT
-  - **Endpoint:** `/tarefas/{task_id}`
-  - **Descrição:** Atualiza os detalhes de uma tarefa específica.
-  
-- **Excluir Tarefa**
-  - **Método HTTP:** DELETE
-  - **Endpoint:** `/tarefas/{task_id}`
-  - **Descrição:** Exclui uma tarefa.
-
+<!--
 ## Tratamento de Erros
 
 A API retorna códigos de status HTTP apropriados junto com mensagens de erro para ajudar na solução de problemas. Certifique-se de tratar os erros adequadamente em sua aplicação.
